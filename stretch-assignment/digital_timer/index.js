@@ -4,10 +4,10 @@ class Timer {
       this.currentMS = startTimeMS;
       this.maxTimeMS = maxTimeMS;
       this.digits = [semiColon, digit1, digit2, digit3, digit4];
-      
+
       //Used by button to stop the timer
       this.stopTimer = false;
-      
+
       //Update the timer at the start to current value
       this.updateDigits(this.currentMS);
    }
@@ -42,13 +42,26 @@ class Timer {
       tempCurrentMS -= tens * 10;
    }
 
-   startTimer(incrementMS) {
+   startTimer(incrementMS = 10, startButton) {
+      this.stopTimer = false;
+      startButton.disabled = true;
+
       const interval = setInterval(() => {
-         this.increaseTimer(incrementMS);
-         if (this.currentMS >= this.maxTimeMS || this.stopTimer) {
+         if (this.currentMS > this.maxTimeMS || this.stopTimer) {
             clearInterval(interval);
+            startButton.disabled = false;
+         } else {
+            this.increaseTimer(incrementMS);
          }
       }, incrementMS);
+   }
+
+   resetTimer(resetMS = 0, startButton) {
+      this.currentMS = resetMS;
+      this.updateDigits(this.currentMS);
+      this.stopTimer = true;
+      this.digits.forEach((digit) => digit.style.color = "");
+      startButton.disabled = false;
    }
 }
 
@@ -58,6 +71,18 @@ const semiColon = document.getElementById('colon');
 const msHundreds = document.getElementById('msHundreds');
 const msTens = document.getElementById('msTens');
 
-const myTimer = new Timer(0, 5000, semiColon, secondTens, secondOnes, msHundreds, msTens);
+const maxTimeMS = 10000;
 
-myTimer.startTimer(10);
+const myTimer = new Timer(0, maxTimeMS, semiColon, secondTens, secondOnes, msHundreds, msTens);
+
+const startButton = document.getElementById('start');
+const resetButton = document.getElementById('reset');
+
+startButton.addEventListener("click", function () {
+   myTimer.resetTimer(0, startButton);
+   myTimer.startTimer(10, startButton);
+});
+
+resetButton.addEventListener("click", function () {
+   myTimer.resetTimer(0, startButton);
+});
