@@ -21,7 +21,7 @@ class Timer {
    updateDigits() {
       let tempCurrentMS = this.currentMS;
       if (this.currentMS >= this.maxTimeMS) {
-         this.digits.forEach((digit) => digit.style.color = 'red');
+         this.digits.forEach((digit) => digit.classList.add('hit-max'));
          tempCurrentMS = this.maxTimeMS;
       }
 
@@ -60,7 +60,7 @@ class Timer {
       this.currentMS = resetMS;
       this.updateDigits(this.currentMS);
       this.stopTimer = true;
-      this.digits.forEach((digit) => digit.style.color = "");
+      this.digits.forEach((digit) => digit.classList.remove('hit-max'));
       startButton.disabled = false;
    }
 }
