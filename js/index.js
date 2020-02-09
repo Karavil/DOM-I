@@ -37,6 +37,50 @@ const siteContent = {
   },
 };
 
-// Example: Update the img src for the logo
-let logo = document.getElementById("logo-img");
+// Logo and Nav Links
+const logo = document.getElementById("logo-img");
 logo.setAttribute('src', siteContent["nav"]["img-src"])
+
+const navLinks = document.querySelectorAll('header nav a');
+for (let i = 0; i < navLinks.length; i++) {
+   navLinks[i].textContent = siteContent.nav[`nav-item-${i+1}`];
+}
+
+//CTA
+const cta = document.querySelector('.cta');
+
+var h1 = cta.querySelector('h1')
+h1.textContent = siteContent.cta.h1;
+
+var button = cta.querySelector('button');
+button.textContent = siteContent.cta.button;
+
+const ctaIMG = cta.querySelector('#cta-img');
+ctaIMG.src = siteContent.cta["img-src"];
+
+//Main-Content
+const mainContent = document.querySelector('.main-content');
+const textContent = mainContent.querySelectorAll('.text-content');
+
+const textContentGenres = ['features', 'about', 'services', 'product', 'vision'];
+
+for (let i = 0; i < textContent.length; i++) {
+   var genreContent = textContent[i].children;
+   genreContent[0].textContent = siteContent['main-content'][`${textContentGenres[i]}-h4`];
+   genreContent[1].textContent = siteContent['main-content'][`${textContentGenres[i]}-content`];
+}
+
+const middleIMG = mainContent.querySelector('#middle-img');
+middleIMG.src = siteContent['main-content']['middle-img-src'];
+
+//Contact
+const contactElements = document.querySelector('.contact').children;
+console.log(contactElements);
+contactElements[0].textContent = siteContent['contact']['contact-h4'];
+contactElements[1].textContent = siteContent['contact']['address'];
+contactElements[2].textContent = siteContent['contact']['phone'];
+contactElements[3].textContent = siteContent['contact']['email'];
+
+//Footer
+const footerParagraph = document.querySelector('footer p');
+footerParagraph.textContent = siteContent['footer']['copyright'];
