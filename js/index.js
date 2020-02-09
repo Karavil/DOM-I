@@ -41,7 +41,7 @@ const siteContent = {
 const logo = document.getElementById("logo-img");
 logo.setAttribute('src', siteContent["nav"]["img-src"])
 
-const navLinks = document.querySelectorAll('header nav a');
+let navLinks = document.querySelectorAll('header nav a');
 for (let i = 0; i < navLinks.length; i++) {
    navLinks[i].textContent = siteContent.nav[`nav-item-${i+1}`];
 }
@@ -84,3 +84,23 @@ contactElements[3].textContent = siteContent['contact']['email'];
 //Footer
 const footerParagraph = document.querySelector('footer p');
 footerParagraph.textContent = siteContent['footer']['copyright'];
+
+
+
+/** Adding/Changing Content */
+
+//Add two new links to nav
+const nav = document.querySelector('nav');
+
+const newLink1 = document.createElement('a');
+newLink1.textContent = 'NewLink1';
+const newLink2 = document.createElement('a');
+newLink2.textContent = 'NewLink2';
+
+nav.appendChild(newLink1);
+nav.prepend(newLink2);
+
+//Make nav links green
+navLinks = document.querySelectorAll('header nav a');
+navLinks.forEach((link) => link.style.color = 'green');
+
